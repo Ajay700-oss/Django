@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Guess the Output{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Test your Python knowledge by guessing the output of code snippets!{% endblock %}" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+            dark: {
+              900: '#0d0f1a',
+              800: '#13162a',
+              700: '#1a1f38',
+              600: '#232845',
+            }
+          },
+          keyframes: {
+            fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            pulse2: { '0%, 100%': { opacity: '1' }, '50%': { opacity: '.6' } },
+            shake: { '0%, 100%': { transform: 'translateX(0)' }, '20%, 60%': { transform: 'translateX(-6px)' }, '40%, 80%': { transform: 'translateX(6px)' } },
+          },
+          animation: {
+            fadeInUp: 'fadeInUp 0.5s ease both',
+            pulse2: 'pulse2 1.2s ease-in-out infinite',
+            shake: 'shake 0.35s ease',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    body { background-color: #0d0f1a; }
+    .gradient-text {
+      background: linear-gradient(135deg, #818cf8, #a78bfa, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glass {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .glow-ring:focus { outline: none; box-shadow: 0 0 0 2px #6366f1, 0 0 18px rgba(99,102,241,0.4); }
+    pre code { font-family: 'Fira Code', monospace !important; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #13162a; }
+    ::-webkit-scrollbar-thumb { background: #4338ca; border-radius: 4px; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="font-sans text-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="glass sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
+    <a href="{% url 'quiz:home' %}" class="flex items-center gap-2 text-lg font-bold tracking-tight">
+      <span class="text-2xl">🧠</span>
+      <span class="gradient-text">Guess the Output</span>
+    </a>
+    <div class="flex items-center gap-4 text-sm font-medium">
+      <a href="{% url 'quiz:quiz' %}" class="text-gray-400 hover:text-white transition">Play</a>
+      <a href="{% url 'quiz:leaderboard' %}" class="text-gray-400 hover:text-white transition">🏆 Leaderboard</a>
+      <a href="/admin/" class="text-gray-400 hover:text-white transition">Admin</a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="flex-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-gray-600 text-xs py-4">
+    Built with ❤️ using Django &amp; Tailwind CSS
+  </footer>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

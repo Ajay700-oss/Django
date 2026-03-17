@@ -1,0 +1,73 @@
+{% extends 'quiz/base.html' %}
+{% block title %}Guess the Output — Home{% endblock %}
+
+{% block content %}
+<section class="flex flex-col items-center justify-center min-h-[80vh] px-4 py-16 text-center relative overflow-hidden">
+
+  <!-- Background blobs -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-600 opacity-10 blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-purple-700 opacity-10 blur-3xl pointer-events-none"></div>
+
+  <!-- Badge -->
+  <span class="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-sm font-medium text-brand-400 animate-pulse2">
+    🐍 Python Code Quiz
+  </span>
+
+  <!-- Hero Heading -->
+  <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-4 animate-fadeInUp">
+    <span class="gradient-text">Guess the Output</span>
+  </h1>
+  <p class="text-gray-400 text-lg md:text-xl max-w-xl mb-10 animate-fadeInUp" style="animation-delay:0.1s">
+    Read Python code snippets. Pick the correct output. Beat the timer. Climb the leaderboard.
+  </p>
+
+  <!-- Stats bar -->
+  <div class="flex items-center gap-8 mb-10 text-center animate-fadeInUp" style="animation-delay:0.15s">
+    <div>
+      <p class="text-3xl font-bold text-brand-400">{{ total_questions }}</p>
+      <p class="text-xs text-gray-500 mt-1">Questions</p>
+    </div>
+    <div class="w-px h-10 bg-white/10"></div>
+    <div>
+      <p class="text-3xl font-bold text-purple-400">{{ timer_seconds }}s</p>
+      <p class="text-xs text-gray-500 mt-1">Per Question</p>
+    </div>
+    <div class="w-px h-10 bg-white/10"></div>
+    <div>
+      <p class="text-3xl font-bold text-pink-400">{{ points_per_question }}</p>
+      <p class="text-xs text-gray-500 mt-1">Points Each</p>
+    </div>
+  </div>
+
+  <!-- Start Form -->
+  <form method="GET" action="{% url 'quiz:quiz' %}" class="glass rounded-2xl p-8 w-full max-w-md text-left space-y-5 animate-fadeInUp" style="animation-delay:0.2s">
+    <div>
+      <label for="player" class="block text-sm text-gray-400 mb-1 font-medium">Your Name</label>
+      <input
+        type="text" id="player" name="player" placeholder="e.g. Ajay" required maxlength="50"
+        class="w-full bg-dark-700 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600
+               focus:border-brand-500 transition glow-ring text-sm"
+      />
+    </div>
+    <div>
+      <label for="difficulty" class="block text-sm text-gray-400 mb-1 font-medium">Difficulty</label>
+      <select id="difficulty" name="difficulty"
+        class="w-full bg-dark-700 border border-white/10 rounded-xl px-4 py-3 text-white glow-ring text-sm">
+        <option value="All">🌐 All Levels</option>
+        <option value="Easy">🟢 Easy</option>
+        <option value="Medium">🟡 Medium</option>
+        <option value="Hard">🔴 Hard</option>
+      </select>
+    </div>
+    <button id="start-btn" type="submit"
+      class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 active:scale-95 transition-all font-semibold text-white text-base shadow-lg shadow-brand-700/40">
+      🚀 Start Game
+    </button>
+  </form>
+
+  <!-- Leaderboard nudge -->
+  <a href="{% url 'quiz:leaderboard' %}" class="mt-8 text-sm text-gray-500 hover:text-brand-400 transition animate-fadeInUp" style="animation-delay:0.3s">
+    View Leaderboard →
+  </a>
+</section>
+{% endblock %}
